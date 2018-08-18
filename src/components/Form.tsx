@@ -8,6 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import axios from 'axios';
 
 export interface FormState {
+  title?: string,
   firstName?: string,
   firstNameErr?: string,
   lastName?: string,
@@ -18,11 +19,23 @@ export interface FormState {
   dateErr?: string
   submitInfo?: string
 }
+export interface FormProps {
+  match?: any
+}
 
-export default class Form extends React.Component<{}, FormState> {
+export interface ServerData {
+  data: {
+    title: string
+  }
+}
+
+export default class Form extends React.Component<FormProps, FormState> {
+  public happeningId='';
+
   constructor(props) {
     super(props);
     this.state = {
+      title: '',
       firstName: '',
       lastName: '',
       email: '',
@@ -31,6 +44,21 @@ export default class Form extends React.Component<{}, FormState> {
     }
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.happeningId=this.props.match.params.id;
+    this.getHappening();
+  }
+
+  getHappening() {
+    console.log('odpalam')
+    axios.get("http://localhost:4000/api/happening/"+this.happeningId)
+    .then((response: ServerData)  => {
+      this.setState({
+        title: response.data.title
+      })
+    })
+    .catch((error) => {
+      console.log(error)
+    });
   }
 
 
@@ -76,7 +104,14 @@ export default class Form extends React.Component<{}, FormState> {
     e.preventDefault();
     const err = this.validate();
     if (!err) {
-      axios.post("http://localhost:4000/happening", this.state)
+      let happeningApplication= {
+        happeningId: this.happeningId,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email:this.state.email,
+        date: this.state.date
+      }
+      axios.post("http://localhost:4000/api/happening-application", happeningApplication)
         .then((response) => {
           this.setState({ submitInfo: 'Form correctly saved' })
         })
@@ -92,7 +127,7 @@ export default class Form extends React.Component<{}, FormState> {
   render() {
     return (
       <form className='form' onSubmit={this.onSubmit}>
-        <p className='title'>Sign for Summer Party</p>
+        <p className='title'>Sign in for {this.state.title}</p>
 
         <FormControl className="text-field" aria-describedby="name-error-text">
           <InputLabel htmlFor="name-error">First name</InputLabel>
