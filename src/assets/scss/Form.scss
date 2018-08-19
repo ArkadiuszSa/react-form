@@ -39,3 +39,20 @@ $primary-color: #0083ff;
     color: $primary-color;
   }
 }
+
+html /deep/ .react-datepicker-wrapper {
+  width:100% !important;
+}
+
+html /deep/ .MuiFormControl-root-1 {
+  width:100% !important;
+}
+
+// .react-datepicker-wrapper, .react-datepicker__input-container {
+//   display: block;
+// }
+.react-datepicker-wrapper {
+  div {
+    width:100%;
+  }
+}

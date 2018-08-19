@@ -1,7 +1,6 @@
 import * as React from "react";
 import "./../assets/scss/Happening.scss";
 import { withRouter } from 'react-router-dom';
-import axios from 'axios';
 
 export interface HappeningProps {
   happening: {
@@ -14,29 +13,19 @@ export interface HappeningProps {
   history?: any//to fix
 }
 
-
-
-
 class Happening extends React.Component<HappeningProps, {}> {
   constructor(props) {
     super(props);
     this.redirecToForm = this.redirecToForm.bind(this);
-    this.getFormData = this.redirecToForm.bind(this);
-
   }
 
   redirecToForm() {
     this.props.history.push("/form/"+this.props.happening._id)
   }
 
-  getFormData() {
-
-  }
-
-
   render() {
     return (
-      <div className="happening-container" onClick={this.redirecToForm}>
+      <div className="happening-container" >
         <p className="title-p">{this.props.happening.title}</p>
         <p className="description-p">{this.props.happening.description}</p>
         <p className="price-p">
@@ -50,6 +39,7 @@ class Happening extends React.Component<HappeningProps, {}> {
             })}
           </div>
         </div>
+        <a  className='sign-in-link' onClick={this.redirecToForm}>Sign up &#8594;</a>
       </div>
     )
   }

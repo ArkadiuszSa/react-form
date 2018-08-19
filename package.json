@@ -82,6 +82,8 @@
     "axios": "^0.18.0",
     "enzyme": "^3.4.3",
     "enzyme-adapter-react-16": "^1.2.0",
+    "moment": "^2.22.2",
+    "prop-types": "^15.6.2",
     "react-datepicker": "^1.6.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",

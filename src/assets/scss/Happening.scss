@@ -14,7 +14,6 @@ $primary-color: #0083ff;
   font-size: 1.2em;
   -webkit-box-shadow: 1px 5px 15px 5px rgba(0, 0, 0, 0.5);
   box-shadow: 1px 5px 15px 5px rgba(0, 0, 0, 0.5);
-  cursor: pointer;
   -moz-transistion: all 0.1s;
   -webkit-transition: all 0.1s;
   transition: all 0.1s;
@@ -51,10 +50,20 @@ $primary-color: #0083ff;
     font-weight: bold;
     margin-right: 10px;
   }
+  .sign-in-link {
+    float: right;
+    color:white;
+    cursor:pointer
+  }
 }
 
 .happening-container:hover {
   -moz-transform: scale(1.03);
   -webkit-transform: scale(1.03);
   transform: scale(1.03);
+
+  .sign-in-link {
+    float: right;
+    color:$primary-color;
+  }
 }
