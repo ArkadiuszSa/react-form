@@ -1,42 +1,50 @@
 $primary-color: #0083ff;
-
-.form {
-  width: 60%;
-  padding: 50px;
+.form-container {
+  height: 100vh;
+  
   display: flex;
-  flex-direction: column;
-  background: white;
-  -webkit-box-shadow: 1px 5px 15px 5px rgba(0, 0, 0, 0.5);
-  box-shadow: 1px 5px 15px 5px rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;  
 
-  .text-field {
-    border-color: $primary-color;
-    outline-color: #0083ff;
-    margin-top: 0;
-  }
+  .form {
+    width: 60%;
+    max-width: 900px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    -webkit-box-shadow: 1px 5px 15px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 5px 15px 5px rgba(0, 0, 0, 0.5);
 
-  .title {
-    text-align: center;
-    font-size: 1.8em;
-    margin-top: 0;
-  }
+    .text-field {
+      border-color: $primary-color;
+      outline-color: #0083ff;
+      margin-top: 0;
+    }
 
-  .submit-button {
-    margin-top: 12px;
-    color: $primary-color;
-    border-color: $primary-color;
-  }
+    .title {
+      text-align: center;
+      font-size: 1.8em;
+      margin-top: 0;
+    }
 
-  .submit-button:hover {
-    background: rgba(0, 131, 255, 0.1);
-  }
+    .submit-button {
+      margin-top: 12px;
+      color: $primary-color;
+      border-color: $primary-color;
+    }
 
-  .field-error {
-    color: red;
-  }
+    .submit-button:hover {
+      background: rgba(0, 131, 255, 0.1);
+    }
 
-  .submit-info {
-    color: $primary-color;
+    .field-error {
+      color: red;
+    }
+
+    .submit-info {
+      color: $primary-color;
+    }
   }
 }
 

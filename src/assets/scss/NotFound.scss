@@ -1,0 +1,16 @@
+.not-found-container{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  .err-number-p {
+    font-size: 6.4em;
+    margin: 0;
+
+  }
+  .err-message-p {
+    font-size: 2em;
+  }
+}

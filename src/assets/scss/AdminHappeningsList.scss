@@ -1,0 +1,14 @@
+.admin-happenings-container {
+  margin-left:56px;
+  margin-right: 56px;
+  .happenings-title-p {
+    display:flex;
+    align-items: center;
+    height:112px;
+    margin:0;
+    font-size: 2em;
+  }
+  .admin-happenings-new-button{
+    float:right
+  }
+}

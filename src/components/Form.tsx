@@ -5,10 +5,11 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import axios from 'axios';
 import DatePicker from 'react-datepicker';
+import axios from 'axios';
 import * as moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
+import MaskedInput from 'react-text-mask';
 
 export interface FormState {
   title?: string,
@@ -20,38 +21,28 @@ export interface FormState {
   emailErr?: string,
   date?: any
   dateErr?: string
-  submitInfo?: string
+  submitInfo?: string,
+  avaibleDates?: any[],
+  selectedDate?: any
 }
 
-export interface HappeningProps {
-  happening: {
-    _id?: string,
-    title?: string,
-    description?: string,
-    days?: Array<string>,
-    price?: string,
-  }
-  history?: any//to fix
-}
 export interface FormProps {
-  match?: any
+  match?: any,
+  history?: any
 }
 
 export interface ServerData {
   data: {
     title: string,
-    days: any
+    days: string
   }
 }
 
 export default class Form extends React.Component<FormProps, FormState> {
   public happeningId = '';
-  public happeningDays = [];
-  public days = [];
-  public selected = null;
+
   constructor(props) {
     super(props);
-
 
     this.state = {
       date: '',
@@ -59,53 +50,52 @@ export default class Form extends React.Component<FormProps, FormState> {
       firstName: '',
       lastName: '',
       email: '',
-      submitInfo: ''
+      submitInfo: '',
+      avaibleDates: [],
+      selectedDate: null
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
-
     this.onSubmit = this.onSubmit.bind(this);
+
     this.happeningId = this.props.match.params.id;
     this.getHappening();
   }
 
-
   getHappening() {
     axios.get("http://localhost:4000/api/happening/" + this.happeningId)
       .then((response: ServerData) => {
+
+        let dates = [];
+        for (let date of response.data.days) {
+          dates.push(moment(date))
+        }
+
         this.setState({
-          title: response.data.title
+          title: response.data.title,
+          avaibleDates: dates,
+          selectedDate: moment(dates[0])
         })
-
-        this.happeningDays = response.data.days;
-        let days = this.happeningDays.map((date) => {
-          this.days.push(moment(date))
-          this.setState({
-            date: this.days[0].format("YYYY-MM-DD")
-          });
-        })
-
       })
       .catch((error) => {
-        console.log(error)
+        this.setState({ submitInfo: 'There is problem with server connection' })
       });
   }
-
 
   handleChange = (e: React.FormEvent<EventTarget>): void => {
     let target = e.target as HTMLInputElement;
     this.setState({ [target.name]: target.value })
-    if (this.state.submitInfo !== '' && this.state.submitInfo !== 'Form has not been saved correctly') {
+    if (this.state.submitInfo !== '') {
       this.setState({ submitInfo: '' })
     }
   }
 
   handleDateChange(date) {
+    let dates = date.format("YYYY-MM-DD")
     this.setState({
-      date: date.format("YYYY-MM-DD")
+      date: dates,
+      selectedDate: date
     });
-
-    this.selected = date;
   }
 
   validate = () => {
@@ -117,10 +107,23 @@ export default class Form extends React.Component<FormProps, FormState> {
       dateErr: ""
     };
 
-    if (this.state.email.indexOf("@") === -1) {
+    let invalidDate = true;
+    for (let date of this.state.avaibleDates) {
+      if (this.state.date === date.format("YYYY-MM-DD")) {
+        invalidDate = false;
+      }
+    }
+    if (invalidDate) {
+      isError = true;
+      errors.dateErr = "Date must match to event dates";
+    }
+
+    let emailRegex = /\S+@\S+\.\S+/;
+    if (!emailRegex.test(this.state.email)) {
       isError = true;
       errors.emailErr = "Requires valid email";
     }
+
     if (this.state.firstName === "") {
       isError = true;
       errors.firstNameErr = "Requires first name";
@@ -145,17 +148,19 @@ export default class Form extends React.Component<FormProps, FormState> {
     e.preventDefault();
     const err = this.validate();
     if (!err) {
-      let happeningApplication = {
+      let application = {
         happeningId: this.happeningId,
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         email: this.state.email,
         date: this.state.date
       }
-      axios.post("http://localhost:4000/api/happening-application", happeningApplication)
+      axios.post("http://localhost:4000/api/application", application)
         .then((response) => {
           this.setState({ submitInfo: 'Form correctly saved' })
-
+          setTimeout(()=>{
+            this.props.history.push("/")
+          },1000)
         })
         .catch((error) => {
           this.setState({ submitInfo: 'Form has not been saved correctly' })
@@ -166,48 +171,65 @@ export default class Form extends React.Component<FormProps, FormState> {
     }
   };
 
+  TextMaskCustom(props) {
+    const { inputRef, ...other } = props;
+
+    return (
+      <MaskedInput
+        {...other}
+        ref={inputRef}
+        mask={[/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
+        keepCharPositions={true}
+        placeholder={'yyyy-mm-dd'}
+      />
+    );
+  }
+
   render() {
     return (
-      <form className='form' onSubmit={this.onSubmit}>
-        <p className='title'>Sign up for {this.state.title}</p>
+      <div className="form-container">
+        <form className='form' onSubmit={this.onSubmit}>
+          <p className='title'>Sign up for {this.state.title}</p>
 
-        <FormControl className="text-field" aria-describedby="name-error-text">
-          <InputLabel htmlFor="name-error">First name</InputLabel>
-          <Input id="name-error" name="firstName" value={this.state.firstName} onChange={this.handleChange} />
-          <FormHelperText className="field-error">{this.state.firstNameErr}</FormHelperText>
-        </FormControl>
+          <FormControl className="text-field" >
+            <InputLabel >First name</InputLabel>
+            <Input name="firstName" value={this.state.firstName} onChange={this.handleChange} />
+            <FormHelperText className="field-error">{this.state.firstNameErr}</FormHelperText>
+          </FormControl>
 
-        <FormControl className="text-field" aria-describedby="name-error-text">
-          <InputLabel htmlFor="name-error">Last name</InputLabel>
-          <Input id="name-error" name="lastName" value={this.state.lastName} onChange={this.handleChange} />
-          <FormHelperText className="field-error">{this.state.lastNameErr}</FormHelperText>
-        </FormControl>
+          <FormControl className="text-field" >
+            <InputLabel >Last name</InputLabel>
+            <Input name="lastName" value={this.state.lastName} onChange={this.handleChange} />
+            <FormHelperText className="field-error">{this.state.lastNameErr}</FormHelperText>
+          </FormControl>
 
-        <FormControl className="text-field" aria-describedby="name-error-text">
-          <InputLabel htmlFor="name-error">Email</InputLabel>
-          <Input id="name-error" name="email" value={this.state.email} onChange={this.handleChange} />
-          <FormHelperText className="field-error">{this.state.emailErr}</FormHelperText>
-        </FormControl>
-        <DatePicker
-          selected={this.selected}
-          onChange={this.handleDateChange}
-          dateFormat="DD.MM.YYYY"
-          includeDates={this.days}
-          customInput={
-            <FormControl className="text-field" aria-describedby="name-error-text">
-              <InputLabel htmlFor="name-error">Date</InputLabel>
-              <Input id="name-error" name="date" value={this.state.date} onClick={this.handleChange} />
-              <FormHelperText className="field-error">{this.state.dateErr}</FormHelperText>
-            </FormControl>
-          }
-        />
+          <FormControl className="text-field">
+            <InputLabel >Email</InputLabel>
+            <Input name="email" value={this.state.email} onChange={this.handleChange} />
+            <FormHelperText className="field-error">{this.state.emailErr}</FormHelperText>
+          </FormControl>
 
-        <p className="submit-info">{this.state.submitInfo}</p>
+          <DatePicker
+            selected={this.state.selectedDate}
+            onChange={this.handleDateChange}
+            includeDates={this.state.avaibleDates}
+            customInput={
+              <FormControl className="text-field"  >
+                <InputLabel>Date</InputLabel>
+                <Input name="date" value={this.state.date} onChange={this.handleChange} inputComponent={this.TextMaskCustom} />
+                <FormHelperText className="field-error">{this.state.dateErr}</FormHelperText>
+              </FormControl>
+            }
+          />
 
-        <Button variant="outlined" type='submit' className='submit-button'>
-          Submit
-        </Button>
-      </form>
+          <p className="submit-info">{this.state.submitInfo}</p>
+
+          <Button variant="outlined" type='submit' className='submit-button'>
+            Submit
+          </Button>
+
+        </form>
+      </div>
     )
   }
 }

@@ -1,0 +1,18 @@
+.applications-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-left:56px;
+  margin-right: 56px;
+  .application-title-p {
+    display:flex;
+    align-items: center;
+    height:112px;
+    margin:0;
+    font-size: 2em;
+  }
+  .applications-table {
+    width:100%;
+  }
+
+}

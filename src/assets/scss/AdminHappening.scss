@@ -1,0 +1,58 @@
+.admin-happening-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-left:56px;
+  margin-right: 56px;
+
+  .admin-happening-title-p {
+    display:flex;
+    align-items: center;
+    height:112px;
+    margin:0;
+    font-size: 2em;
+  }
+
+  .admin-happening-label {
+    font-weight: bold;
+    min-width: 120px;
+    width:120px;
+  }
+
+  .admin-happening-days-p {
+    margin-top: 0;
+  }
+  
+  .admin-happening-textfield-wrapper{
+    width: 100%;
+
+    .admin-happening-textfield {
+      width: 100%;
+    }
+
+    .admin-happening-button {
+      margin-top: 12px;
+      margin-left: 12px;
+      float: right;
+    }
+
+  }
+  
+  .admin-happeningdatepicker-wrapper {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .admin-happenings-delete-button {
+    width: 100px;
+    margin-left: auto;
+  }
+  
+}
+
+.admin-happening-field {
+  display:flex;
+  
+}

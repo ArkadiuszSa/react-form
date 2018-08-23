@@ -10,7 +10,7 @@ export interface HappeningProps {
     days?: Array<string>,
     price?: string,
   }
-  history?: any//to fix
+  history?: any
 }
 
 class Happening extends React.Component<HappeningProps, {}> {
