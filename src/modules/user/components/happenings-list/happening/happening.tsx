@@ -1,6 +1,7 @@
 import * as React from "react";
-import "./../assets/scss/Happening.scss";
 import { withRouter } from 'react-router-dom';
+
+import "./happening.scss";
 
 export interface HappeningProps {
   happening: {

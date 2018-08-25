@@ -3,8 +3,10 @@ const {resolve} = require('path');
 const {CheckerPlugin} = require('awesome-typescript-loader');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ProvidePlugin = require('regenerator-runtime/runtime')
 
 module.exports = {
+  entry: ["babel-polyfill", "./app.tsx"],
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
@@ -46,6 +48,9 @@ module.exports = {
     new CheckerPlugin(),
     new StyleLintPlugin(),
     new HtmlWebpackPlugin({template: 'index.html.ejs',}),
+    // new ProvidePlugin({
+    //   'regeneratorRuntime': 'regenerator-runtime/runtime'
+    // }),
   ],
   externals: {
     'react': 'React',

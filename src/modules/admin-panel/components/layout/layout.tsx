@@ -1,24 +1,19 @@
 import * as React from "react";
-import "../../assets/scss/AdminPanel.scss";
-const logo = require("./logout.svg") as string;
 import { withRouter } from 'react-router-dom';
-//
-import * as PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {
+  BrowserRouter as Router,
+  Link,
+} from 'react-router-dom';
+
+import "./layout.scss";
+const logo = require("../../../../assets/img/logout.svg") as string;
+import AdminAuthGuard from '../../helpers/admin-auth-guard'
+
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-//
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch
-} from 'react-router-dom';
 
-import AdminAuthGuard from '../../helpers/AdminAuthGuard'
 export interface AdminLayoutProps {
   history?: any
 }

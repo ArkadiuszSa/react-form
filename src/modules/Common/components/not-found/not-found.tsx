@@ -1,6 +1,7 @@
 import * as React from "react";
-import "./../assets/scss/NotFound.scss";
 import { withRouter } from 'react-router-dom';
+
+import "./not-found.scss";
 
 
 class AdminPanel extends React.Component<{}, {}> {

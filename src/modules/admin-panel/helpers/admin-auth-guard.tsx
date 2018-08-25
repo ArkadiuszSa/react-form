@@ -8,19 +8,12 @@ export interface HappeningProps {
   history?: any
 }
 
-// export interface ServerData {
-//   data: {
-//     token: string
-//   }
-// }
-
 class AuthGuard {
   constructor() {
 
   }
 
   setSesion(authResult) {
-    var decodedToken = jwt.decode(authResult.token);
     localStorage.removeItem("auth-token");
     localStorage.setItem('auth-token', authResult.token);
   }
@@ -49,7 +42,6 @@ class AuthGuard {
       
     }
   }
-
 }
 
 export default new AuthGuard()

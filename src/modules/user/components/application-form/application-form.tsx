@@ -1,14 +1,18 @@
 import * as React from "react";
-import "./../assets/scss/Form.scss";
+import * as moment from 'moment';
+import axios from 'axios';
+
+import "./application-form.scss";
+import ApplicationFormService from "./application-form.service"
+
+import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from 'react-datepicker';
+
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import DatePicker from 'react-datepicker';
-import axios from 'axios';
-import * as moment from 'moment';
-import 'react-datepicker/dist/react-datepicker.css';
 import MaskedInput from 'react-text-mask';
 
 export interface FormState {
@@ -31,16 +35,9 @@ export interface FormProps {
   history?: any
 }
 
-export interface ServerData {
-  data: {
-    title: string,
-    days: string
-  }
-}
-
-export default class Form extends React.Component<FormProps, FormState> {
+export default class ApplicationForm extends React.Component<FormProps, FormState> {
   public happeningId = '';
-
+  private applicationFormService: ApplicationFormService = new ApplicationFormService()
   constructor(props) {
     super(props);
 
@@ -59,22 +56,19 @@ export default class Form extends React.Component<FormProps, FormState> {
     this.onSubmit = this.onSubmit.bind(this);
 
     this.happeningId = this.props.match.params.id;
+  }
+
+  componentDidMount() {
     this.getHappening();
   }
 
   getHappening() {
-    axios.get("http://localhost:4000/api/happening/" + this.happeningId)
-      .then((response: ServerData) => {
-
-        let dates = [];
-        for (let date of response.data.days) {
-          dates.push(moment(date))
-        }
-
+    this.applicationFormService.getHappening(this.happeningId)
+      .then((res) => {
         this.setState({
-          title: response.data.title,
-          avaibleDates: dates,
-          selectedDate: moment(dates[0])
+          title: res.title,
+          avaibleDates: res.avaibleDates,
+          selectedDate: moment(res.avaibleDates[0])
         })
       })
       .catch((error) => {
@@ -99,48 +93,23 @@ export default class Form extends React.Component<FormProps, FormState> {
   }
 
   validate = () => {
-    let isError = false;
-    const errors = {
-      firstNameErr: "",
-      lastNameErr: "",
-      emailErr: "",
-      dateErr: ""
-    };
-
-    let invalidDate = true;
-    for (let date of this.state.avaibleDates) {
-      if (this.state.date === date.format("YYYY-MM-DD")) {
-        invalidDate = false;
-      }
-    }
-    if (invalidDate) {
-      isError = true;
-      errors.dateErr = "Date must match to event dates";
+    let state = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      date: this.state.date,
+      avaibleDates: [...this.state.avaibleDates]
     }
 
-    let emailRegex = /\S+@\S+\.\S+/;
-    if (!emailRegex.test(this.state.email)) {
-      isError = true;
-      errors.emailErr = "Requires valid email";
-    }
-
-    if (this.state.firstName === "") {
-      isError = true;
-      errors.firstNameErr = "Requires first name";
-    }
-    if (this.state.lastName === "") {
-      isError = true;
-      errors.lastNameErr = "Requires last name";
-    }
-    if (this.state.date === "") {
-      isError = true;
-      errors.dateErr = "Requires date";
-    }
+    let validationRes = this.applicationFormService.validateForm(state);
+    let isError = validationRes.isError
+    let errors = validationRes.errors;
 
     this.setState({
       ...this.state,
       ...errors
     });
+
     return isError;
   };
 
@@ -155,16 +124,15 @@ export default class Form extends React.Component<FormProps, FormState> {
         email: this.state.email,
         date: this.state.date
       }
-      axios.post("http://localhost:4000/api/application", application)
+      this.applicationFormService.AddNewApplication(application)
         .then((response) => {
-          this.setState({ submitInfo: 'Form correctly saved' })
-          setTimeout(()=>{
-            this.props.history.push("/")
-          },1000)
+          this.setState({ submitInfo: response })
+          if (response === 'Form correctly saved!') {
+            setTimeout(() => {
+              this.props.history.push("/")
+            }, 1000)
+          }
         })
-        .catch((error) => {
-          this.setState({ submitInfo: 'Form has not been saved correctly' })
-        });
 
     } else {
       this.setState({ submitInfo: '' })

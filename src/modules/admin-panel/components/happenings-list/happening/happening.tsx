@@ -1,21 +1,40 @@
 import * as React from "react";
-import "../../assets/scss/AdminHappening.scss";
 import { withRouter } from 'react-router-dom';
+import * as moment from 'moment';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
+import "./happening.scss";
+import http from '../../../helpers/http'
+import HappeningService from "./happening.service"
+
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import DatePicker from 'react-datepicker';
-import * as moment from 'moment';
-import 'react-datepicker/dist/react-datepicker.css';
-import http from '../../helpers/Axios'
 
 export interface AdminHappeningProps {
   history?: any
   match?: any
 }
+
+export interface Happening {
+  title?: string,
+  description?: string,
+  price?: string,
+  days?: string[],
+}
+
+export interface HappeningData {
+  title?: string,
+  description?: string,
+  price?: string,
+  days?: string[],
+  selectedDates?: any[],
+}
+
 export interface AdminHappeningState {
   _id?: string,
   title?: string,
@@ -31,6 +50,7 @@ export interface ServerData {
 }
 
 class AdminHappening extends React.Component<AdminHappeningProps, AdminHappeningState> {
+  private happeningService: HappeningService = new HappeningService()
 
   constructor(props) {
     super(props);
@@ -45,7 +65,6 @@ class AdminHappening extends React.Component<AdminHappeningProps, AdminHappening
       selectedDates: []
     }
 
-    this.getHappening(this.state._id);
     this.handleEditClick = this.handleEditClick.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
@@ -55,27 +74,17 @@ class AdminHappening extends React.Component<AdminHappeningProps, AdminHappening
 
   }
 
-  getHappening(id) {
-    http.get("http://localhost:4000/api/happening/" + id)
-      .then((response: ServerData) => {
-        this.setState({
-          title: response.data.title,
-          description: response.data.description,
-          price: response.data.price,
-          days: response.data.days
-        })
-        let dates = [];
-        for (let date of response.data.days) {
-          dates.push(moment(date))
-        }
+  componentDidMount() {
+    this.getHappening(this.state._id);
+  }
 
-        this.setState({
-          selectedDates: dates
-        })
+  getHappening(id) {
+    this.happeningService.getHappening(this.state._id).then( (result:HappeningData)=>{
+      this.setState({
+        ...this.state,
+        ...result
       })
-      .catch((error) => {
-        console.log(error)
-      });
+    })
   }
 
   deleteHappening() {
@@ -107,6 +116,7 @@ class AdminHappening extends React.Component<AdminHappeningProps, AdminHappening
       .catch((error) => {
         console.log(error)
       });
+
   }
 
   handleEditClick = (name): void => {
@@ -235,7 +245,7 @@ class AdminHappening extends React.Component<AdminHappeningProps, AdminHappening
 
               </p>
             ) : this.state.editName === 'days' ? (
-              <div className='admin-happening-textfield-wrapper admin-happeningdatepicker-wrapper'>
+              <div className='admin-happening-textfield-wrapper admin-happening-datepicker-wrapper'>
 
                 <DatePicker
                   inline

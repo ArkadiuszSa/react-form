@@ -1,7 +1,9 @@
 import * as React from "react";
-import "./../assets/scss/HappeningsList.scss";
-import Happening from './happening'
 import axios from 'axios';
+
+import "./happenings-list.scss";
+import Happening from './happening/happening'
+
 
 export interface HappeningProps {
   _id?: string,

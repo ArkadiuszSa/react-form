@@ -1,17 +1,15 @@
 import * as React from "react";
-import "./../assets/scss/NotFound.scss";
 import { withRouter } from 'react-router-dom';
 
-export interface LoginProps {
+export interface NoAccesProps {
   history?: any
 }
 
-
-class Logout extends React.Component<LoginProps, {}> {
+class Logout extends React.Component<NoAccesProps, {}> {
   constructor(props) {
     super(props);
     setTimeout(()=>{
-      this.props.history.push("/")
+      this.props.history.push("/login")
 
     },2000)
   }
@@ -19,7 +17,7 @@ class Logout extends React.Component<LoginProps, {}> {
   render() {
     return (
       <div className="not-found-container" >
-        <p className="err-message-p">You have successfully logged out!</p>
+        <p className="err-message-p">You don't have acces to this page!</p>
       </div>
     )
   }

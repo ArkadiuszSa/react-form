@@ -1,18 +1,13 @@
 import * as React from "react";
-import "../../assets/scss/AdminHappeningsList.scss";
+import * as moment from 'moment'
 import { withRouter } from 'react-router-dom';
+
+import "./happenings-list.scss";
+import http from '../../helpers/http'
+
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
-import http from '../../helpers/Axios'
-import * as moment from 'moment'
-import {
-  Link
-} from 'react-router-dom';
-import { isMoment } from "moment";
 
 export interface ServerData {
   data: Happening[]
@@ -45,13 +40,11 @@ class AdminHappenigsList extends React.Component<HappeningListProps, HappeningsL
 
   redirectToHappening(id) {
     this.props.history.push("/admin/happening/" + id)
-
   }
 
   getHappenings() {
-    axios.get("http://localhost:4000/api/happenings/")
+    http.get("http://localhost:4000/api/happenings/")
       .then((response: ServerData) => {
-        console.log('odpala getowanie')
         this.setState({
           happenings: response.data
         })
@@ -70,14 +63,12 @@ class AdminHappenigsList extends React.Component<HappeningListProps, HappeningsL
     }
     http.post("http://localhost:4000/api/happening", newHappening)
       .then((response) => {
-        console.log('wchodzi w thena')
         this.getHappenings();
       })
       .catch((error) => {
         console.log(error)
       });
   }
-
 
   render() {
     return (

@@ -1,12 +1,13 @@
 import * as React from "react";
-import "./../assets/scss/Form.scss";
+import axios from 'axios';
+
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import axios from 'axios';
-import AdminAuthGuard from '../helpers/AdminAuthGuard'
+
+import AuthService from '../../helpers/auth-service'
 
 
 export interface LoginState {
@@ -28,7 +29,7 @@ export interface ServerData {
   }
 }
 
-export default class Form extends React.Component<LoginProps, LoginState> {
+export default class Login extends React.Component<LoginProps, LoginState> {
   public happeningId = '';
   public happeningDays = [];
   public days = [];
@@ -59,7 +60,6 @@ export default class Form extends React.Component<LoginProps, LoginState> {
       passwordErr: ""
     };
 
-
     if (this.state.email === "") {
       isError = true;
       errors.emailErr = "Requires login";
@@ -86,7 +86,7 @@ export default class Form extends React.Component<LoginProps, LoginState> {
       }
       axios.post("http://localhost:4000/api/login", loginRequestData)
         .then((response) => {
-          AdminAuthGuard.setSesion(response.data)
+          AuthService.setSesion(response.data)
           this.props.history.push("/admin/applications")
 
         })
