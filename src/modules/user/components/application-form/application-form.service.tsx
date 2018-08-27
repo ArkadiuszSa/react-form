@@ -1,42 +1,34 @@
-import axios from 'axios';
-import * as moment from 'moment';
+import axios from "axios";
+import * as moment from "moment";
 
 export interface HappeningData {
   data: {
-    title: string,
-    days: any,
-  }
+    title: string;
+    days: any;
+  };
 }
 
 export default class ApplicationFormService {
-  constructor() {
-
-  }
+  constructor() {}
 
   public getHappening(id) {
-    return axios.get("http://localhost:4000/api/happening/" + id)
+    return axios
+      .get("http://localhost:4000/api/happening/" + id)
       .then((response: HappeningData) => {
-
         let dates = [];
         for (let date of response.data.days) {
-          dates.push(moment(date))
+          dates.push(moment(date));
         }
-
         return {
           title: response.data.title,
-          avaibleDates: dates
-        }
-      })
+          avaibleDates: dates,
+          selectedDate: moment(dates[0])
+        };
+      });
   }
 
   public AddNewApplication(application) {
-    return axios.post("http://localhost:4000/api/application", application)
-      .then((response) => {
-        return('Form correctly saved!')
-      })
-      .catch((error) => {
-        return ('Form has not been saved correctly!' )
-      });
+    return axios.post("http://localhost:4000/api/application", application);
   }
 
   public validateForm(stateValues) {
@@ -59,7 +51,8 @@ export default class ApplicationFormService {
       errors.dateErr = "Date must match to event dates";
     }
 
-    let emailRegex = /\S+@\S+\.\S+/;
+    //let emailRegex = /\S+@\S+\.\S+/;
+    let emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     if (!emailRegex.test(stateValues.email)) {
       isError = true;
       errors.emailErr = "Requires valid email";
@@ -80,6 +73,4 @@ export default class ApplicationFormService {
 
     return { isError: isError, errors: errors };
   }
-
-
 }
