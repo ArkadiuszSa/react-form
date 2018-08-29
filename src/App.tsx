@@ -30,7 +30,6 @@ export default class App extends React.Component<AppProps, undefined> {
   render() {
     return (
       <Provider store={store}>
-        {/* <Counter></Counter> */}
         <Router>
           <div className="App">
             <Switch>
