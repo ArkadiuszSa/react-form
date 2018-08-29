@@ -74,7 +74,8 @@
     "react-text-mask": "^5.4.3",
     "redux": "^4.0.0",
     "redux-promise": "^0.6.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "webpack": "^4.14.0"
   },
   "engines": {
     "node": "^8.11.3",
