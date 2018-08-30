@@ -1,11 +1,14 @@
 const express = require("express");
 const app = express();
-const portNumber = 3000;
-const sourceDir = "dist";
+const path = require("path");
 
-app.use(express.static(sourceDir));
+app.use(express.static(__dirname + "/dist"));
+app.get("/*", function(req, res) {
+  res.sendFile(path.join(__dirname + "/dist/index.html"));
+});
 
-app.listen(process.env.PORT || portNumber, () => {
-  console.log(`Express web server started: http://localhost:${portNumber}`);
-  console.log(`Serving content from /${sourceDir}/`);
+app.listen(process.env.PORT || 8080, () => {
+  console.log(
+    `Express web server started: on port ${process.env.PORT || 8080}`
+  );
 });

@@ -5,7 +5,7 @@
     "lint": "yarn run lint:ts && yarn run lint:sass",
     "lint:ts": "tslint './src/**/*.ts*' --format stylish --force",
     "lint:sass": "stylelint ./src/**/*.scss",
-    "start": "yarn run build || node express.js",
+    "start": "node express.js",
     "start-dev": "webpack-dev-server --config=configs/webpack/dev.js",
     "start-prod": "yarn run build && node express.js",
     "test": "jest --watch --coverage --config=configs/jest.json"
