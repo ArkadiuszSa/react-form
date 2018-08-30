@@ -32,6 +32,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         title: action.payload.title,
+        date: action.payload.date,
         avaibleDates: action.payload.avaibleDates,
         selectedDate: action.payload.selectedDate
       };

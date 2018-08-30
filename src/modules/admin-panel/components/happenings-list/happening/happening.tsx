@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./happening.scss";
 import http from "../../../helpers/http";
 import HappeningService from "./happening.service";
+import constants from "../../../../../constants";
 
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -54,6 +55,7 @@ class AdminHappening extends React.Component<
   AdminHappeningState
 > {
   private happeningService: HappeningService = new HappeningService();
+  private apiBase = constants.API_BASE;
 
   constructor(props) {
     super(props);
@@ -93,7 +95,7 @@ class AdminHappening extends React.Component<
 
   deleteHappening() {
     http
-      .delete("http://localhost:4000/api/happening/" + this.state._id)
+      .delete(this.apiBase + "/happening/" + this.state._id)
       .then((response: ServerData) => {
         this.props.history.push("/admin/happenings");
       })
@@ -114,10 +116,7 @@ class AdminHappening extends React.Component<
       updatedHappening[name] = this.state.editVal;
 
     http
-      .put(
-        "http://localhost:4000/api/happening/" + this.state._id,
-        updatedHappening
-      )
+      .put(this.apiBase + "/happening/" + this.state._id, updatedHappening)
       .then((response: ServerData) => {
         this.getHappening(this.state._id);
         this.setState({ editName: "" });

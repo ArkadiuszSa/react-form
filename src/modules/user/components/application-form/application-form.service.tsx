@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as moment from "moment";
-
+import constants from "../../../../constants";
 export interface HappeningData {
   data: {
     title: string;
@@ -9,11 +9,12 @@ export interface HappeningData {
 }
 
 export default class ApplicationFormService {
+  private apiBase = constants.API_BASE;
   constructor() {}
 
   public getHappening(id) {
     return axios
-      .get("http://localhost:4000/api/happening/" + id)
+      .get(this.apiBase + "/happening/" + id)
       .then((response: HappeningData) => {
         let dates = [];
         for (let date of response.data.days) {
@@ -21,6 +22,7 @@ export default class ApplicationFormService {
         }
         return {
           title: response.data.title,
+          date: response.data.days[0],
           avaibleDates: dates,
           selectedDate: moment(dates[0])
         };
@@ -28,7 +30,7 @@ export default class ApplicationFormService {
   }
 
   public AddNewApplication(application) {
-    return axios.post("http://localhost:4000/api/application", application);
+    return axios.post(this.apiBase + "/application", application);
   }
 
   public validateForm(stateValues) {
@@ -51,7 +53,6 @@ export default class ApplicationFormService {
       errors.dateErr = "Date must match to event dates";
     }
 
-    //let emailRegex = /\S+@\S+\.\S+/;
     let emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     if (!emailRegex.test(stateValues.email)) {
       isError = true;
