@@ -1,52 +1,78 @@
-# React Webpack Typescript Starter
-Minimal starter kit with hot module replacement (HMR) for rapid development.
+# EVENTS-LIST-CLIENT
 
-* **[React](https://facebook.github.io/react/)** (16.x)
-* **[Webpack](https://webpack.js.org/)** (4.x)
-* **[Typescript](https://www.typescriptlang.org/)** (2.x)
-* **[Hot Module Replacement (HMR)](https://webpack.js.org/concepts/hot-module-replacement/)** using [React Hot Loader](https://github.com/gaearon/react-hot-loader) (4.x)
-* [Babel](http://babeljs.io/) (6.x)
-* [SASS](http://sass-lang.com/)
-* [Jest](https://facebook.github.io/jest/) - Testing framework for React applications
-* Production build script
-* Image loading/minification using [Image Webpack Loader](https://github.com/tcoopman/image-webpack-loader)
-* Typescript compiling using [Awesome Typescript Loader](https://github.com/s-panferov/awesome-typescript-loader) (5.x)
-* Code quality (linting) for Typescript and SASS/CSS.
-  
-## Installation
-1. Clone/download repo
-2. `npm install`
+### Live : https://react-events-list.herokuapp.com/
 
-## Usage
-**Development**
+### Server repo: https://github.com/ArkadiuszSa/react-form-server
 
-`npm run start-dev`
+### Description
 
-* Build app continuously (HMR enabled)
-* App served @ `http://localhost:8080` 
+My first react SPA application. To create app I used this boilplate: https://github.com/vikpe/react-webpack-typescript-starter
+Dist folder is also in repo, beacasue webpack need more RAM then heroku limit for free acount.
+If you want to check admin-panel, the login is admin@admin.com with password admin.
+Generaly admin is adding event and user can sign up for this event.
+Main techs:
 
-**Production**
+- React, react-redux, react-router, axios
+- Material UI, scss
+- Webpack, babel
+- Typescript, awesome-typescript-loader
+- Jest, enzyme, redux-mock-store
+- Express
+- Linter for typescript and scss
 
-`npm run start-prod`
+### Installation and scripts
 
-* Build app once (HMR disabled)
-* App served @ `http://localhost:3000`
+To install and start application localy use: `yarn install` and `yarn start-dev. Before that you should firstly run server app.
 
----
+`yarn run start-dev` | Build app continuously (HMR enabled)
+`yarn run start-prod` | Build app once (HMR disabled)
+`yarn run start` | Run app by nodemon from /dist
+`yarn run build` | Build app to `/dist/`
+`yarn run test` | Run tests
+`yarn run lint` | Run Typescript and SASS linter
+`yarn run lint:ts` | Run Typescript linter
+`yarn run lint:sass` | Run SASS linter
 
-**All commands**
+### File structure
 
-Command | Description
---- | ---
-`npm run start-dev` | Build app continuously (HMR enabled) and serve @ `http://localhost:8080`
-`npm run start-prod` | Build app once (HMR disabled) and serve @ `http://localhost:3000`
-`npm run build` | Build app to `/dist/` 
-`npm run test` | Run tests
-`npm run lint` | Run Typescript and SASS linter
-`npm run lint:ts` | Run Typescript linter
-`npm run lint:sass` | Run SASS linter
-`npm run start` | (alias of `npm run start-dev`)
+At this moment only application-form in User module is finished. The rest of app has different structures. Generally I think a good option is to make file structure and naming like Angular style guide. Modules are a part of app designed for special purpose. After that we can make theam lazy loaded. Modules can contain pages and helpers folder. Page folder will store e.g for application-form:
 
-## See also
-* [React Webpack Babel Starter](https://github.com/vikpe/react-webpack-babel-starter)
-* [Isomorphic Webapp Starter](https://github.com/vikpe/isomorphic-webapp-starter)
+- application-form.container.tsx | react-redux container that will connect props to dummy component and use services and actions
+- application-form.component.tsx | dummy presentation component without state
+- application-form.services.tsx | any logic functions like validators or http requests
+- application-form.actions.tsx | list of actions with types and optional payload
+- application-form.reducers.tsx | reducers that will perform state changes
+- application-form.scss
+- components | folder for another components used in page
+
+I'm not sure that this file structure with resposibles are the best but it works fine.
+
+### Pages
+
+User:
+
+- / -list of events, every event tab have link to sign up form
+- /form -here user can sign on event
+
+Admin:
+
+- /admin/happenings -list of happenings with add new happening button
+- /admin/happening/:id - happening data with update options
+- /admin/applications - list of users applications
+
+Common:
+
+- /login - login form for admin panel
+- /logout - displayed after admin log out, redirect to home /
+- /no-acces - displayed if user with invalid token want to visit admin-panel
+- /not-found - displayed when router can't find path
+
+### Tests
+
+At this time only application-form is tested. Most of the test are unit tests. Almost any expection have snapshot(great thing).
+
+- Component- checked how diffrent props have imact on component rendering
+- Container- Run diffrent functions connected by props, checking action types and payload
+- Actions- just checking action type and payload
+- Service- Mocking http request with axios-mock-adapter, checkig normal functions like validation
+- Reducers- run actions and check state
