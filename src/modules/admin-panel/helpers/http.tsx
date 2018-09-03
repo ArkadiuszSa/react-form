@@ -1,13 +1,13 @@
 import axios from "axios";
 import * as promise from "promise";
 
-var axiosInstance = axios.create();
+let axiosInstance = axios.create();
 
 axiosInstance.interceptors.request.use(
   function(config) {
     let authToken = localStorage.getItem("auth-token");
 
-    var accessToken = authToken;
+    let accessToken = authToken;
     if (accessToken) {
       if (config.method !== "OPTIONS") {
         config.headers.authorization = accessToken;

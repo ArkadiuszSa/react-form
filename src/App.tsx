@@ -1,6 +1,6 @@
 import * as React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "./app.scss";
+import "./assets/scss/app.scss";
 import "./assets/scss/normalize.scss";
 
 import AdminPanel from "./modules/admin-panel/components/layout/layout";

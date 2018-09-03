@@ -1,18 +1,14 @@
 export interface HappeningProps {
-
-  history?: any
+  history?: any;
 }
 
 class AuthService {
-  constructor() {
-
-  }
+  constructor() {}
 
   setSesion(authResult) {
     localStorage.removeItem("auth-token");
-    localStorage.setItem('auth-token', authResult.token);
+    localStorage.setItem("auth-token", authResult.token);
   }
-
 }
 
-export default new AuthService()
+export default new AuthService();
