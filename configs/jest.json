@@ -12,7 +12,7 @@
     "^.+\\.(ts|tsx)$": "<rootDir>/configs/jest.preprocessor.js"
   },
   "transformIgnorePatterns": ["/node_modules/"],
-  "testRegex": "/tests/.*.(test.tsx)",
+  "testRegex": "/tests/.*.test.tsx$",
   "moduleDirectories": ["node_modules"],
   "globals": {
     "DEVELOPMENT": false,
