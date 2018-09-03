@@ -21,7 +21,7 @@ export default class ApplicationFormService {
           dates.push(moment(date));
         }
         return {
-          title: response.data.title,
+          title: "Sign up for " + response.data.title,
           date: response.data.days[0],
           avaibleDates: dates,
           selectedDate: moment(dates[0])

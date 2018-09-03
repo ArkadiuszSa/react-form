@@ -1,7 +1,7 @@
 import {
-  FETCH_APPLICATION_FORM_HAPPENING,
+  FETCH_APPLICATION_HAPPENING_SUCCES,
+  FETCH_APPLICATION_HAPPENING_FAILURE,
   RESET_APPLICATION_FORM,
-  SUBMIT_APPLICATION_FORM,
   HANDLE_FORM_CHANGE,
   HANDLE_DATE_CHANGE,
   VALIDATION_APPLICATION_FORM_FAILURE,
@@ -28,13 +28,19 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case FETCH_APPLICATION_FORM_HAPPENING:
+    case FETCH_APPLICATION_HAPPENING_SUCCES:
       return {
         ...state,
         title: action.payload.title,
         date: action.payload.date,
         avaibleDates: action.payload.avaibleDates,
         selectedDate: action.payload.selectedDate
+      };
+
+    case FETCH_APPLICATION_HAPPENING_FAILURE:
+      return {
+        ...state,
+        title: action.payload
       };
 
     case RESET_APPLICATION_FORM:
@@ -80,7 +86,7 @@ export default (state = INITIAL_STATE, action) => {
     case RESET_APPLICATION_FORM_SUBMIT_INFO:
       return {
         ...state,
-        submitInfo: action.payload
+        submitInfo: ""
       };
 
     default:

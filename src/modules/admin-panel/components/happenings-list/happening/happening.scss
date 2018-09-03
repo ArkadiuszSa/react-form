@@ -2,28 +2,28 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin-left:56px;
+  margin-left: 56px;
   margin-right: 56px;
 
   .admin-happening-title-p {
-    display:flex;
+    display: flex;
     align-items: center;
-    height:112px;
-    margin:0;
+    height: 112px;
+    margin: 0;
     font-size: 2em;
   }
 
   .admin-happening-label {
     font-weight: bold;
     min-width: 120px;
-    width:120px;
+    width: 120px;
   }
 
   .admin-happening-days-p {
     margin-top: 0;
   }
-  
-  .admin-happening-textfield-wrapper{
+
+  .admin-happening-textfield-wrapper {
     width: 100%;
 
     .admin-happening-textfield {
@@ -35,11 +35,10 @@
       margin-left: 12px;
       float: right;
     }
-
   }
-  
+
   .admin-happening-datepicker-wrapper {
-    display:flex;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -49,10 +48,8 @@
     width: 100px;
     margin-left: auto;
   }
-  
 }
 
 .admin-happening-field {
-  display:flex;
-  
+  display: flex;
 }

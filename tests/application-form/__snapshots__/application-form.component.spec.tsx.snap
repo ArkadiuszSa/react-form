@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ApplicationForm-component should display data in inputs 1`] = `"John"`;
+
+exports[`ApplicationForm-component should display data in inputs 2`] = `"Doo"`;
+
+exports[`ApplicationForm-component should display data in inputs 3`] = `"JohnDo@gmail.com"`;
+
+exports[`ApplicationForm-component should display data in inputs 4`] = `"2018-11-11"`;
+
+exports[`ApplicationForm-component should display datepicker after click on date input 1`] = `1`;
+
+exports[`ApplicationForm-component should display errors in textHelpers 1`] = `"Requires first name"`;
+
+exports[`ApplicationForm-component should display errors in textHelpers 2`] = `"Requires last name"`;
+
+exports[`ApplicationForm-component should display errors in textHelpers 3`] = `"Requires email"`;
+
+exports[`ApplicationForm-component should display errors in textHelpers 4`] = `"Requires date"`;
+
+exports[`ApplicationForm-component should display submit info 1`] = `"Form correctly saved."`;
+
+exports[`ApplicationForm-component should display title 1`] = `"New happening"`;
+
+exports[`ApplicationForm-component should render self and subcomponents 1`] = `1`;
+
+exports[`ApplicationForm-component should render self and subcomponents 2`] = `4`;
+
+exports[`ApplicationForm-component should render self and subcomponents 3`] = `1`;
+
+exports[`ApplicationForm-component should render self and subcomponents 4`] = `1`;

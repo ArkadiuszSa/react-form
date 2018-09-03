@@ -1,7 +1,11 @@
 class Constants {
-  public API_BASE;
+  public readonly API_BASE;
   constructor() {
-    this.API_BASE = "https://event-list-server.herokuapp.com/api";
+    if (process.env.NODE_ENV === "production") {
+      this.API_BASE = "https://event-list-server.herokuapp.com/api";
+    } else {
+      this.API_BASE = "http://localhost:4000/api";
+    }
   }
 }
 

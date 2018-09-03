@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ApplicationForm-actions FETCH_APPLICATION_HAPPENING Dispatches the correct action and payload 1`] = `
+Array [
+  Object {
+    "payload": "payload",
+    "type": "FETCH_APPLICATION_HAPPENING_SUCCES",
+  },
+]
+`;
+
+exports[`ApplicationForm-actions FETCH_APPLICATION_HAPPENING Dispatches the correct action and payload 2`] = `
+Array [
+  Object {
+    "payload": "There is problem with server connection",
+    "type": "FETCH_APPLICATION_HAPPENING_FAILURE",
+  },
+]
+`;
+
+exports[`ApplicationForm-actions HANDLE_DATE_CHANGE Dispatches the correct action and payload 1`] = `
+Array [
+  Object {
+    "payload": "payload",
+    "type": "HANDLE_DATE_CHANGE",
+  },
+]
+`;
+
+exports[`ApplicationForm-actions HANDLE_FORM_CHANGE Dispatches the correct action and payload 1`] = `
+Array [
+  Object {
+    "payload": "payload",
+    "type": "HANDLE_FORM_CHANGE",
+  },
+]
+`;
+
+exports[`ApplicationForm-actions RESET_APPLICATION_FORM Dispatches the correct action and payload 1`] = `
+Array [
+  Object {
+    "type": "RESET_APPLICATION_FORM",
+  },
+]
+`;
+
+exports[`ApplicationForm-actions RESET_APPLICATION_FORM_SUBMIT_INFO Dispatches the correct action and payload 1`] = `
+Array [
+  Object {
+    "type": "RESET_APPLICATION_FORM_SUBMIT_INFO",
+  },
+]
+`;
+
+exports[`ApplicationForm-actions SUBMIT_APPLICATION_FORM Dispatches the correct action and payload 1`] = `
+Array [
+  Object {
+    "payload": "payload",
+    "type": "SUBMIT_APPLICATION_FORM",
+  },
+]
+`;
+
+exports[`ApplicationForm-actions SUBMIT_APPLICATION_FORM_FAILURE Dispatches the correct action and payload 1`] = `
+Array [
+  Object {
+    "payload": "payload",
+    "type": "SUBMIT_APPLICATION_FORM_FAILURE",
+  },
+]
+`;
+
+exports[`ApplicationForm-actions SUBMIT_APPLICATION_FORM_SUCCES Dispatches the correct action and payload 1`] = `
+Array [
+  Object {
+    "payload": "Form correctly saved!",
+    "type": "SUBMIT_APPLICATION_FORM_SUCCES",
+  },
+]
+`;
+
+exports[`ApplicationForm-actions VALIDATION_APPLICATION_FORM_FAILURE Dispatches the correct action and payload 1`] = `
+Array [
+  Object {
+    "payload": "payload",
+    "type": "VALIDATION_APPLICATION_FORM_FAILURE",
+  },
+]
+`;
+
+exports[`ApplicationForm-actions VALIDATION_APPLICATION_FORM_SUCCES Dispatches the correct action and payload 1`] = `
+Array [
+  Object {
+    "type": "VALIDATION_APPLICATION_FORM_SUCCES",
+  },
+]
+`;

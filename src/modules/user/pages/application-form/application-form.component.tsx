@@ -9,13 +9,7 @@ import FormControl from "@material-ui/core/FormControl";
 import MaskedInput from "react-text-mask";
 
 import "./application-form.scss";
-import {
-  fetchHappening,
-  handleFormChange,
-  handleDateChange,
-  submitApplicationForm,
-  resetApplicationForm
-} from "./application-form.actions";
+import * as moment from "moment";
 
 export interface FormProps {
   match: any;
@@ -25,7 +19,6 @@ export interface FormProps {
   handleFormChange: Function;
   handleDateChange: any;
   submitApplicationForm: Function;
-
   title: string;
   firstName: string;
   firstNameErr: string;
@@ -37,15 +30,14 @@ export interface FormProps {
   dateErr: string;
   avaibleDates: any[];
   selectedDate: any;
-  submitInfo: any;
+  submitInfo: string;
 }
 
 class ApplicationForm extends React.Component<FormProps, {}> {
-  public happeningId = "";
+  public happeningId: string = "id";
   public disabledInput: boolean = false;
   constructor(props) {
     super(props);
-
     this.happeningId = this.props.match.params.id;
   }
   componentWillMount() {
@@ -82,6 +74,12 @@ class ApplicationForm extends React.Component<FormProps, {}> {
         this.props.history.push("/");
       }, 2000);
     }
+    if (this.props.title === "There is problem with server connection") {
+      this.disabledInput = true;
+      setTimeout(() => {
+        this.props.history.push("/");
+      }, 5000);
+    }
     return (
       <div className="form-container">
         <form
@@ -97,7 +95,7 @@ class ApplicationForm extends React.Component<FormProps, {}> {
             })
           }
         >
-          <p className="title">Sign up for {this.props.title}</p>
+          <p className="title">{this.props.title}</p>
 
           <FormControl className="text-field">
             <InputLabel>First name</InputLabel>
@@ -139,6 +137,7 @@ class ApplicationForm extends React.Component<FormProps, {}> {
           </FormControl>
 
           <DatePicker
+            disabled={this.disabledInput}
             selected={this.props.selectedDate}
             onChange={this.props.handleDateChange}
             includeDates={this.props.avaibleDates}
@@ -160,7 +159,12 @@ class ApplicationForm extends React.Component<FormProps, {}> {
           />
 
           <p className="submit-info">{this.props.submitInfo}</p>
-          <Button variant="outlined" type="submit" className="submit-button">
+          <Button
+            disabled={this.disabledInput}
+            variant="outlined"
+            type="submit"
+            className="submit-button"
+          >
             Submit
           </Button>
         </form>

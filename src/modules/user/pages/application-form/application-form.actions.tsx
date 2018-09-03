@@ -1,9 +1,7 @@
-export const FETCH_APPLICATION_FORM_HAPPENING = "FETCH_APPLICATION_FORM";
-export const FETCH_APPLICATION_FORM_HAPPENING_SUCCES =
-  "FETCH_APPLICATION_FORM_SUCCES";
-export const FETCH_APPLICATION_FORM_HAPPENING_FAILURE =
-  "FETCH_APPLICATION_FORM_FAILURE";
-
+export const FETCH_APPLICATION_HAPPENING_SUCCES =
+  "FETCH_APPLICATION_HAPPENING_SUCCES";
+export const FETCH_APPLICATION_HAPPENING_FAILURE =
+  "FETCH_APPLICATION_HAPPENING_FAILURE";
 export const RESET_APPLICATION_FORM = "RESET_APPLICATION_FORM";
 
 export const HANDLE_FORM_CHANGE = "HANDLE_FORM_CHANGE";
@@ -18,13 +16,21 @@ export const SUBMIT_APPLICATION_FORM = "SUBMIT_APPLICATION_FORM";
 export const SUBMIT_APPLICATION_FORM_SUCCES = "SUBMIT_APPLICATION_FORM_SUCCES";
 export const SUBMIT_APPLICATION_FORM_FAILURE =
   "SUBMIT_APPLICATION_FORM_FAILURE";
+
 export const RESET_APPLICATION_FORM_SUBMIT_INFO =
   "RESET_APPLICATION_FORM_SUBMIT_INFO";
 
-export function fetchHappening(data) {
+export function fetchHappeningSucces(data) {
   return {
-    type: FETCH_APPLICATION_FORM_HAPPENING,
+    type: FETCH_APPLICATION_HAPPENING_SUCCES,
     payload: data
+  };
+}
+
+export function fetchHappeningFailure() {
+  return {
+    type: FETCH_APPLICATION_HAPPENING_FAILURE,
+    payload: "There is problem with server connection"
   };
 }
 
@@ -84,7 +90,6 @@ export function submitApplicationFormFailure(error) {
 
 export function resetApplicationFormSubmitInfo() {
   return {
-    type: RESET_APPLICATION_FORM_SUBMIT_INFO,
-    payload: ""
+    type: RESET_APPLICATION_FORM_SUBMIT_INFO
   };
 }

@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ApplicationForm-service should fetch happening and return transformed data 1`] = `
+Object {
+  "avaibleDates": Array [
+    "2018-11-10T23:00:00.000Z",
+  ],
+  "date": "2018-11-11",
+  "selectedDate": "2018-11-10T23:00:00.000Z",
+  "title": "Sign up for Happening Name",
+}
+`;
+
+exports[`ApplicationForm-service should negatively validate form and return boolean result with errors 1`] = `true`;
+
+exports[`ApplicationForm-service should negatively validate form and return boolean result with errors 2`] = `
+Object {
+  "dateErr": "Requires date",
+  "emailErr": "Requires valid email",
+  "firstNameErr": "Requires first name",
+  "lastNameErr": "Requires last name",
+}
+`;
+
+exports[`ApplicationForm-service should positively validate form and return boolean result 1`] = `
+Object {
+  "dateErr": "",
+  "emailErr": "",
+  "firstNameErr": "",
+  "lastNameErr": "",
+}
+`;

@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import {
-  fetchHappening,
+  fetchHappeningSucces,
+  fetchHappeningFailure,
   handleFormChange,
   handleDateChange,
   validationApplicationFormFailure,
@@ -15,7 +16,7 @@ import ApplicationForm from "./application-form.component";
 
 const applicationFormService = new ApplicationFormService();
 
-function mapStateToProps(state, ownProps) {
+export function mapStateToProps(state) {
   return {
     title: state.applicationForm.title,
     avaibleDates: state.applicationForm.avaibleDates,
@@ -32,12 +33,17 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-const mapDispatchToProps = dispatch => {
+export const mapDispatchToProps = dispatch => {
   return {
     fetchHappening: id => {
-      applicationFormService.getHappening(id).then(response => {
-        dispatch(fetchHappening(response));
-      });
+      applicationFormService
+        .getHappening(id)
+        .then(response => {
+          dispatch(fetchHappeningSucces(response));
+        })
+        .catch(() => {
+          dispatch(fetchHappeningFailure());
+        });
     },
 
     resetApplicationForm: () => {
@@ -111,7 +117,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
+const ApplicationFormContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(ApplicationForm);
+
+export default ApplicationFormContainer;

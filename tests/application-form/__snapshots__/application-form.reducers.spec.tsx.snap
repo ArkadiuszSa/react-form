@@ -1,0 +1,173 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ApplicationForm-reducers FETCH_APPLCATION_HAPPENING_FAILURE returns the correct state 1`] = `
+Object {
+  "avaibleDates": undefined,
+  "date": undefined,
+  "dateErr": "",
+  "email": "",
+  "emailErr": "",
+  "firstName": "",
+  "firstNameErr": "",
+  "lastName": "",
+  "lastNameErr": "",
+  "selectedDate": undefined,
+  "submitInfo": "",
+  "title": "There is problem with server connection",
+}
+`;
+
+exports[`ApplicationForm-reducers FETCH_APPLCATION_HAPPENING_SUCCES returns the correct state 1`] = `
+Object {
+  "avaibleDates": Array [
+    "2018-11-28",
+  ],
+  "date": "2018-11-28",
+  "dateErr": "",
+  "email": "",
+  "emailErr": "",
+  "firstName": "",
+  "firstNameErr": "",
+  "lastName": "",
+  "lastNameErr": "",
+  "selectedDate": "2018-11-28",
+  "submitInfo": "",
+  "title": "New happening",
+}
+`;
+
+exports[`ApplicationForm-reducers HANDLE_DATE_CHANGE returns the correct state 1`] = `
+Object {
+  "avaibleDates": Array [],
+  "date": "2018-11-12",
+  "dateErr": "",
+  "email": "",
+  "emailErr": "",
+  "firstName": "",
+  "firstNameErr": "",
+  "lastName": "",
+  "lastNameErr": "",
+  "selectedDate": "2018-11-12",
+  "submitInfo": "",
+  "title": "",
+}
+`;
+
+exports[`ApplicationForm-reducers HANDLE_FORM_CHANGE returns the correct state 1`] = `
+Object {
+  "avaibleDates": Array [],
+  "date": "",
+  "dateErr": "",
+  "email": "kowalski@gmail.com",
+  "emailErr": "",
+  "firstName": "",
+  "firstNameErr": "",
+  "lastName": "",
+  "lastNameErr": "",
+  "selectedDate": "",
+  "submitInfo": "",
+  "title": "",
+}
+`;
+
+exports[`ApplicationForm-reducers INITIAL_STATE is correct 1`] = `
+Object {
+  "avaibleDates": Array [],
+  "date": "",
+  "dateErr": "",
+  "email": "",
+  "emailErr": "",
+  "firstName": "",
+  "firstNameErr": "",
+  "lastName": "",
+  "lastNameErr": "",
+  "selectedDate": "",
+  "submitInfo": "",
+  "title": "",
+}
+`;
+
+exports[`ApplicationForm-reducers RESET_APPLICATION_FORM returns the correct state 1`] = `
+Object {
+  "avaibleDates": Array [],
+  "date": "",
+  "dateErr": "",
+  "email": "",
+  "emailErr": "",
+  "firstName": "",
+  "firstNameErr": "",
+  "lastName": "",
+  "lastNameErr": "",
+  "selectedDate": "",
+  "submitInfo": "",
+  "title": "",
+}
+`;
+
+exports[`ApplicationForm-reducers RESET_APPLICATION_FORM_SUBMIT_INFO returns the correct state 1`] = `
+Object {
+  "avaibleDates": Array [],
+  "date": "",
+  "dateErr": "",
+  "email": "",
+  "emailErr": "",
+  "firstName": "",
+  "firstNameErr": "",
+  "lastName": "",
+  "lastNameErr": "",
+  "selectedDate": "",
+  "submitInfo": "",
+  "title": "",
+}
+`;
+
+exports[`ApplicationForm-reducers SUBMIT_APPLICATION_FORM_FAILURE returns the correct state 1`] = `
+Object {
+  "avaibleDates": Array [],
+  "date": "",
+  "dateErr": "",
+  "email": "",
+  "emailErr": "",
+  "firstName": "",
+  "firstNameErr": "",
+  "lastName": "",
+  "lastNameErr": "",
+  "selectedDate": "",
+  "submitInfo": "This email is already signed up for this event",
+  "title": "",
+}
+`;
+
+exports[`ApplicationForm-reducers VALIDATION_APPLICATION_FORM_FAILURE returns the correct state 1`] = `
+Object {
+  "avaibleDates": Array [],
+  "date": "",
+  "dateErr": "Date is required",
+  "email": "",
+  "emailErr": "Email is required",
+  "firstName": "",
+  "firstNameErr": "First name is required",
+  "lastName": "",
+  "lastNameErr": "Last name is required",
+  "selectedDate": "",
+  "submitInfo": "",
+  "title": "",
+}
+`;
+
+exports[`ApplicationForm-reducers VALIDATION_APPLICATION_FORM_SUCCES returns the correct state 1`] = `
+Object {
+  "avaibleDates": Array [],
+  "date": "",
+  "dateErr": "",
+  "email": "",
+  "emailErr": "",
+  "firstName": "",
+  "firstNameErr": "",
+  "lastName": "",
+  "lastNameErr": "",
+  "selectedDate": "",
+  "submitInfo": "",
+  "title": "",
+}
+`;
