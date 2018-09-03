@@ -24,14 +24,14 @@ Main techs:
 
 To install and start application localy use: `yarn install` and `yarn start-dev. Before that you should firstly run server app.
 
-`yarn run start-dev` | Build app continuously (HMR enabled)
-`yarn run start-prod` | Build app once (HMR disabled)
-`yarn run start` | Run app by nodemon from /dist
-`yarn run build` | Build app to `/dist/`
-`yarn run test` | Run tests
-`yarn run lint` | Run Typescript and SASS linter
-`yarn run lint:ts` | Run Typescript linter
-`yarn run lint:sass` | Run SASS linter
+* `yarn run start-dev` | Build app continuously (HMR enabled)
+* `yarn run start-prod` | Build app once (HMR disabled)
+* `yarn run start` | Run app by nodemon from /dist
+* `yarn run build` | Build app to `/dist/`
+* `yarn run test` | Run tests
+* `yarn run lint` | Run Typescript and SASS linter
+* `yarn run lint:ts` | Run Typescript linter
+* `yarn run lint:sass` | Run SASS linter
 
 ### File structure
 
